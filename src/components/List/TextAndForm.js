@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 class TextAndForm extends Component {
   constructor(props) {
@@ -16,7 +17,12 @@ class TextAndForm extends Component {
   }
 
   saveButtonHandler = () => {
-
+    // fungsi untuk handle ketika user klik tombol save
+    this.props.editTodo(this.props.index, this.state.text)
+    // console.log(this.props.index, this.state.text)
+    this.setState({
+      viewMode: 'show'
+    })
   }
 
   cancelButtonHandler = () => {
@@ -33,6 +39,7 @@ class TextAndForm extends Component {
     this.setState({
       text: e.target.value
     })
+    console.log(this.state.text)
   }
 
   render() {
@@ -100,4 +107,10 @@ class TextAndForm extends Component {
   }
 }
 
-export default TextAndForm;
+const mapDispatchToProps = dispatch => {
+  return {
+    editTodo: (index, todo) => dispatch({type: 'EDIT_TODOS', payload: { index, todo }})
+  }
+}
+
+export default connect(null, mapDispatchToProps)(TextAndForm);

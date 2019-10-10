@@ -23,6 +23,21 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         todos: newTodos
       }
+    case 'EDIT_TODOS':
+      // edit state
+
+      // copy state todos
+      let todos = [...state.todos]
+      // ganti data todo
+      let index = action.payload.index
+      let todo = action.payload.todo
+      todos[index] = todo
+
+      // return state baru
+      return {
+        ...state,
+        todos
+      }
     default:
       return state
   }
