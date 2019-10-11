@@ -1,17 +1,19 @@
 import { createStore } from "redux";
+import * as ActionTypes from './Actions/ActionTypes';
 
 const initialState = {
-  todos: []
+  todos: [],
+  notes: []
 };
 
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'ADD_TODOS':
+    case ActionTypes.ADD_TODOS:
       return {
         ...state,
         todos: [...state.todos, action.payload]
       }
-    case 'DELETE_TODOS':
+    case ActionTypes.DELETE_TODOS:
       // menghapus dengan metode splice
       // copy state todos
       let newTodos = [...state.todos]
@@ -23,7 +25,7 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         todos: newTodos
       }
-    case 'EDIT_TODOS':
+    case ActionTypes.EDIT_TODOS:
       // edit state
 
       // copy state todos
@@ -38,6 +40,11 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         todos
       }
+    case ActionTypes.ADD_NOTE: 
+      return {
+        ...state,
+        notes: [...state.notes, action.payload]
+      } 
     default:
       return state
   }

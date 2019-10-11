@@ -17,7 +17,6 @@ class List extends Component {
             <TextAndForm
               todo={todo}
               index={index}
-              onDelete={() => this.deleteHandler(index)}
             />
           </li>
         ))}
@@ -30,9 +29,9 @@ const mapStateToProps = state => {
     todos: state.todos
   };
 };
-const mapDispatchToProps = dispatch => {
-  return {
-    deleteTodo: (index) => dispatch({ type: 'DELETE_TODOS', payload: index })
-  }
-}
-export default connect(mapStateToProps, mapDispatchToProps)(List);
+// const mapDispatchToProps = dispatch => {
+//   return {
+    
+//   }
+// }
+export default connect(mapStateToProps, null)(List);

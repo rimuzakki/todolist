@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { editTodo, deleteTodo } from '../../Store/Actions/TodoAction';
 
 class TextAndForm extends Component {
   constructor(props) {
@@ -32,7 +33,7 @@ class TextAndForm extends Component {
   }
 
   deleteButtonHandler = () => {
-    this.props.onDelete()
+    this.props.deleteTodo(this.props.index)
   }
 
   onChangeHandler = (e) => {
@@ -109,7 +110,8 @@ class TextAndForm extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    editTodo: (index, todo) => dispatch({type: 'EDIT_TODOS', payload: { index, todo }})
+    editTodo: (index, todo) => dispatch(editTodo({ index, todo })),
+    deleteTodo: (index) => dispatch(deleteTodo(index))
   }
 }
 

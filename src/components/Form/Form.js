@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { addTodo } from '../../Store/Actions/TodoAction';
+import { addNote } from '../../Store/Actions/NoteAction';
 
 class Form extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      text: ''
+      text: '',
+      choice: 'Todo'
     }
   }
 
@@ -15,14 +18,36 @@ class Form extends Component {
 
   onSubmit = () => {
     // this.props.submit(this.state.text)
-    this.props.addTodos(this.state.text)
+    // this.props.addTodos(this.state.text)
+    // this.setState({ text: '' })
+    
+    if(this.state.choice === 'Todo') {
+      this.props.addTodos(this.state.text)
+    } else {
+      this.props.addNotes(this.state.text)
+    }
+
     this.setState({ text: '' })
   }
 
+  onClickChoice = (value) => {
+    this.setState({ choice: value })
+  }
+
   render() {
+    var styleButtonTodo = ''
+    var styleButtonNotes = ''
+    if(this.state.choice === 'Todo') {
+    styleButtonTodo = 'btn-success'
+    } else {
+    styleButtonNotes = 'btn-success'      
+    }
+
     return (
       <>
-        <p>Add Todo</p>
+        <button className={`btn m-2 ${styleButtonTodo}`}  onClick={() => this.onClickChoice('todo')}>Switch to Add Todo</button>
+        <button className={`btn ${styleButtonNotes}`} onClick={() => this.onClickChoice('notes')}>Switch to Add Notes</button>
+        <p>Add {this.state.choice}</p>
         <div className="form-group">
           <input
             value={this.state.text}
@@ -36,7 +61,8 @@ class Form extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    addTodos: (todo) => dispatch({ type: 'ADD_TODOS', payload: todo })
+    addTodos: (todo) => dispatch(addTodo(todo)),
+    addNotes: (note) => dispatch(addNote(note))
   }
 }
 export default connect(null, mapDispatchToProps)(Form)
